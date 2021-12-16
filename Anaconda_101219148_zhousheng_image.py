@@ -66,10 +66,54 @@ def photoCircle(photoName):  #画圆
         plt.scatter(circleCenter,circleCenter,color='None',
                     edgecolors='w',s=31*(radius+i),marker='o')
         i=i+10
-    plt.imshow(circlePhoto)  # 测试时显示图片
-    plt.axis('off')
-    plt.savefig("./pic1_2Circle.jpg",dpi=750)   
-    
+    plt.imshow(circlePhoto)  # 显示图片
+    plt.savefig("./pic1_2Circle.jpg",dpi=750)
+    #裁切plt生成区域
+    circlePhoto1 = io.imread("./pic1_2Circle.jpg")
+    io.imshow(circlePhoto1)
+    circlePhoto1=circlePhoto1[392:2588,1207:3400,:]
+    io.imsave("./pic1_2Circle.jpg",circlePhoto1)
+
+
+"""
+
+def photoCircle(photoName):  
+
+    myPhoto = io.imread(photoName)
+    rowNum, columnNum, colorNum = myPhoto.shape
+    squareNum = min(rowNum, columnNum)
+    circlePhoto = np.zeros((squareNum,squareNum,3),dtype="uint8")
+    circleCenter = np.int(squareNum/2)
+    radius = circleCenter
+    circlePhoto=myPhoto[:squareNum,:squareNum,:]
+    i=0
+    while(i<=700):
+        rr, cc=draw.circle_perimeter(circleCenter,circleCenter,radius+i)
+        draw.set_color(circlePhoto,[rr,cc],[255,255,255])
+        i+=1
+    io.imshow(circlePhoto)
+    io.imsave("./pic1_2circle.jpg",circlePhoto)    
+
+
+def photoCircle(photoName):    
+    myPhoto = io.imread(photoName)
+    rowNum, columnNum, colorNum = myPhoto.shape
+    squareNum = min(rowNum, columnNum)
+    circlePhoto = np.zeros((squareNum,squareNum,3),dtype="uint8")
+    circleCenter = np.int(squareNum/2)
+    radius = circleCenter
+    for rowIdx in np.arange(0,squareNum,1):
+        for columnIdx in np.arange(0,squareNum,1):
+            if ( (rowIdx    - circleCenter)**2
+                +(columnIdx - circleCenter)**2
+                < radius**2 ):
+                    circlePhoto[rowIdx,columnIdx,:]=myPhoto[rowIdx,columnIdx,:]
+            else:
+                    circlePhoto[rowIdx,columnIdx,:]=255
+
+    io.imsave("./pic1_2circle.jpg",circlePhoto)    
+
+"""
 
 def photoRotate(photoName):#旋转
 
