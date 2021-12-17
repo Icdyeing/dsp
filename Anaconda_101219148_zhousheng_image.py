@@ -62,7 +62,7 @@ def photoCircle(photoName):  #画圆
     radius = circleCenter
     circlePhoto=myPhoto[:squareNum,:squareNum,:]
     i=0
-    while(i<=2000): #从图片中心出画足够密度的中心圆
+    while(i<=2000): #从图片圆心处画足够密度的空心圆，通过边缘填充白色
         plt.scatter(circleCenter,circleCenter,color='None',
                     edgecolors='w',s=31*(radius+i),marker='o')
         i=i+10
